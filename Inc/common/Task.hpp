@@ -11,7 +11,7 @@ class Task {
     /**
      * Loop called to "service" task
      */
-    virtual void service(RobotState state) = 0;
+    virtual RobotState service(RobotState state) = 0;
 
     /**
      * Called to allow task to perform initialization

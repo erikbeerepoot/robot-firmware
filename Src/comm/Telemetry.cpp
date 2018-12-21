@@ -13,8 +13,9 @@ Telemetry::Telemetry(UART_HandleTypeDef *telemetryUART){
     uart = telemetryUART;
 }
 
-void Telemetry::service(RobotState state) {
+RobotState Telemetry::service(RobotState state) {
     transmitTelemetry(state);
+    return state;
 }
 
 void Telemetry::init() {
@@ -25,26 +26,34 @@ void Telemetry::terminate() {
 
 }
 
-RobotState Telemetry::receiveCommand(RobotState lastState){
+bool Telemetry::receiveCommand(MotionState lastState, MotionState *newState){
 
     if(HAL_UART_Receive(uart, &rxBuffer[0], 1, 2) != HAL_OK){
-        return lastState;
+        *newState = lastState;
+        return false;
     }
 
     switch(rxBuffer[0]){
         case 's':
-            return STRAIGHT;
+            *newState = STRAIGHT;
+            break;
         case 'b':
-            return REVERSE;
+            *newState = REVERSE;
+            break;
         case 'h':
-            return STOPPED;
+            *newState = STOPPED;
+            break;
         case 'l':
-            return LEFT;
+            *newState = LEFT;
+            break;
         case 'r':
-            return RIGHT;
+            *newState = RIGHT;
+            break;
         default:
-            return lastState;
+            *newState = lastState;
+            return false;
     }
+    return true;
 }
 
 void Telemetry::transmitTelemetry(RobotState state){

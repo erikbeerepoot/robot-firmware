@@ -13,11 +13,11 @@
 class Telemetry: Task {
 public:
     Telemetry(UART_HandleTypeDef *uart);
-    void service(RobotState state);
+    RobotState service(RobotState state);
     void init();
     void terminate();
 
-    RobotState receiveCommand(RobotState lastState);
+    bool receiveCommand(MotionState lastState, MotionState *newState);
 private:
     void transmitTelemetry(RobotState state);
 };

@@ -14,7 +14,7 @@ set(OBJDUMP arm-none-eabi-objdump)
 set(SIZE arm-none-eabi-size)
 
 
-SET(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F446RETx_FLASH.ld Src/sensing/Proximity.cpp Inc/sensing/Proximity.h Inc/motion/Motor.h Src/motion/Motor.cpp)
+SET(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F446RETx_FLASH.ld Inc/sensing/MaxbotixRangefinder.h Src/sensing/MaxbotixRangefinder.cpp Src/motion/PathPlanner.cpp Inc/motion/PathPlanner.h)
 
 #Uncomment for hardware floating point
 #SET(FPU_FLAGS "-mfloat-abi=hard -mfpu=fpv4-sp-d16")

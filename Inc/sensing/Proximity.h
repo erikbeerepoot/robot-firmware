@@ -5,4 +5,11 @@
 #ifndef ROBOT_PROXIMITY_H
 #define ROBOT_PROXIMITY_H
 
+#include <stm32f446xx.h>
+
+class Proxmity {
+public:
+    virtual float readDistance() = 0;
+};
+
 #endif //ROBOT_PROXIMITY_H

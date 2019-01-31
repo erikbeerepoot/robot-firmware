@@ -58,6 +58,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+CRC_HandleTypeDef hcrc;
+
 
 SPI_HandleTypeDef hspi2;
 
@@ -90,6 +92,8 @@ static void MX_USART6_UART_Init();
 
 static void MX_ADC1_Init();
 
+static void MX_CRC_Init(void);
+
 void MX_USB_HOST_Process();
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
@@ -104,7 +108,7 @@ GPIO_PinState _qs18();
 /* USER CODE BEGIN 0 */
 
 
-auto telemetry = new Telemetry(&huart6);
+auto telemetry = new Telemetry(&huart6, &hcrc);
 std::function<void(const char *buffer, int length)> callback = [](const char *buffer, int length) {
     telemetry->transmitScan(buffer, length);
 };
@@ -159,54 +163,25 @@ int main(void) {
     MX_USART6_UART_Init();
     MX_ADC1_Init();
     MX_USB_HOST_Init();
-    /* USER CODE BEGIN 2 */
+    MX_CRC_Init();
 
     /* USER CODE BEGIN 2 */
-
-    /* Initialize interrupts */
     HAL_TIM_Base_Start_IT(&htim10);
+    HAL_TIM_Base_Start(&htim2);
+    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
-//    HAL_TIM_Base_Start(&htim2);
-//    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-//    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-////
-//
-//    auto l = new Motor(GPIOC, GPIO_PIN_0, GPIOC, GPIO_PIN_1, &htim2, TIM_CHANNEL_1, 1024);
-//    auto r = new Motor(GPIOC, GPIO_PIN_2, GPIOC, GPIO_PIN_3, &htim2, TIM_CHANNEL_2, 1024);
-////    auto rangefinder = new SharpRangefinder(&hadc1, ADC_CHANNEL_2);
-//    auto usonic = new MaxbotixRangefinder();
+    auto l = new Motor(GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0, &htim2, TIM_CHANNEL_1, 4096);
+    auto r = new Motor(GPIOC, GPIO_PIN_2, GPIOC, GPIO_PIN_3, &htim2, TIM_CHANNEL_2, 4096);
 
-//    auto planner = new PathPlanner(telemetry, l, r);
-//    auto state = new RobotState();
+    auto planner = new PathPlanner(telemetry, l, r);
+    auto state = new RobotState();
 
-
-    unsigned char buffer[100];
-    buffer[0] = 'V';
-    buffer[1] = 0x0A;
-    buffer[2] = 0;
-    buffer[3] = 0;
-
-    int i = 0;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
     while (true) {
         MX_USB_HOST_Process();
         hokuyo.tick();
-        //
-//        buffer[0] = 0x0;
-//        HAL_I2C_Master_Transmit(&hi2c1, 0x50, buffer, 1, HAL_MAX_DELAY);
-//
-//        HAL_I2C_Master_Receive(&hi2c1, 0x50, buffer, 1, HAL_MAX_DELAY);
-//        HAL_UART_Transmit(&huart1, buffer, 1, HAL_MAX_DELAY);
-//
-//        buffer[0] = 0x1;
-//        HAL_I2C_Master_Transmit(&hi2c1, 0x50, buffer, 1, HAL_MAX_DELAY);
-//
-//        HAL_I2C_Master_Receive(&hi2c1, 0x50, buffer, 1, HAL_MAX_DELAY);
-//        HAL_UART_Transmit(&huart1, buffer, 1, HAL_MAX_DELAY);
-//        state->usonic = usonic->readDistance();
-//        state->ir = rangefinder->readDistance();
-//        state->qs18 = _qs18() == LOW;
 //        *state = planner->service(*state);
     }
 #pragma clang diagnostic pop
@@ -302,6 +277,18 @@ static void MX_ADC1_Init(void) {
 
 }
 
+/* CRC init function */
+static void MX_CRC_Init(void)
+{
+
+    hcrc.Instance = CRC;
+    if (HAL_CRC_Init(&hcrc) != HAL_OK)
+    {
+        _Error_Handler(__FILE__, __LINE__);
+    }
+
+}
+
 /* SPI2 init function */
 static void MX_SPI2_Init(void) {
 
@@ -332,9 +319,9 @@ static void MX_TIM2_Init(void) {
     TIM_IC_InitTypeDef sConfigIC;
 
     htim2.Instance = TIM2;
-    htim2.Init.Prescaler = 0;
+    htim2.Init.Prescaler = 40;
     htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-    htim2.Init.Period = 0;
+    htim2.Init.Period = 4096;
     htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     if (HAL_TIM_PWM_Init(&htim2) != HAL_OK) {
         _Error_Handler(__FILE__, __LINE__);

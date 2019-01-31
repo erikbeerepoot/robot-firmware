@@ -51,17 +51,14 @@ int Motor::getDuty(){
 }
 
 void Motor::_a1(GPIO_PinState state) {
-    //PA0
     HAL_GPIO_WritePin(a1Port, a1Channel, state);
 }
 
 void Motor::_a2(GPIO_PinState state) {
-    //PA1
     HAL_GPIO_WritePin(a2Port, a2Channel, state);
 }
 
 void Motor::run(bool reverse) {
-    //PA0, PA1
     if(reverse) {
         _a1(LOW);
         _a2(HIGH);

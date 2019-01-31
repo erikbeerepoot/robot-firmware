@@ -5,18 +5,13 @@
 #ifndef ROBOT_ROBOTSTATE_H
 #define ROBOT_ROBOTSTATE_H
 
-typedef enum MotionState {
-    STRAIGHT = 0,
-    LEFT,
-    RIGHT,
-    STOPPED,
-    REVERSE,
-    CHOOSE_DIRECTION,
-    FAULT
+typedef struct MotionState {
+    double v_x;
+    double v_y;
 } MotionState ;
 
 typedef struct RobotState {
-    MotionState motionState = STOPPED;
+    MotionState motionState;
     float usonic = 0;
     float ir = 0;
     bool qs18 = false;

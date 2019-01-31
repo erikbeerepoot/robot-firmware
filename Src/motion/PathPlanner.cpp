@@ -13,14 +13,15 @@ PathPlanner::PathPlanner(Telemetry *telemetry,
     this->l = l;
     this->r = r;
 
-    l->stop();
-    r->stop();
-    l->setDuty(35);
-    r->setDuty(25);
+//    l->stop();
+//    r->stop();
+//    l->setDuty(35);
+//    r->setDuty(25);
 }
 
-void PathPlanner::init(){}
-void PathPlanner::terminate(){}
+void PathPlanner::init() {}
+
+void PathPlanner::terminate() {}
 
 double k = 25;
 
@@ -28,67 +29,24 @@ RobotState PathPlanner::service(RobotState state) {
     static RobotState lastState;
 
     bool receivedCommand = telemetry->receiveCommand(state.motionState, &(state.motionState));
-    if(!receivedCommand){
-        //plan a path
-        if (!state.qs18) {
-            state.motionState = STOPPED;
-        } else {
-            if (state.ir < 20) {
-                //execute turn
-                l->run(false);
-                r->run(true);
-                HAL_Delay(4000);
-            } else {
-                if (state.usonic > 120 && l->getDuty() > 5) {
-                    float distanceFactor = (state.usonic - 120)  / 5;
-                    l->setDuty(l->getDuty() - 4*distanceFactor);
-                    r->setDuty(r->getDuty() + 4*distanceFactor);
-                } else if (state.usonic < 100 && l->getDuty() < 55) {
-                    float distanceFactor = (state.usonic)  / 5;
-                    l->setDuty(l->getDuty() + 4*distanceFactor);
-                    r->setDuty(r->getDuty() - 4*distanceFactor);
-                } else {
-                    l->setDuty(25);
-                    r->setDuty(20);
-                }
-            }
-        }
-    } else {
-        __NOP();
-        __NOP();
-        __NOP();
-        __NOP();
-    }
+    if (receivedCommand) {
+        double v_x = state.motionState.v_x;
+        double v_y = state.motionState.v_y;
 
-    switch (state.motionState) {
-        case STRAIGHT:
-            l->run(false);
-            r->run(false);
-            break;
-        case STOPPED:
-            l->stop();
-            r->stop();
-            break;
-        case LEFT:
-            l->run(true);
-            r->run(false);
-            break;
-        case RIGHT:
-            l->run(false);
-            r->run(true);
-            break;
-        case REVERSE:
-            l->run(true);
-            r->run(true);
-            break;
-        case CHOOSE_DIRECTION:
-            break;
-        case FAULT:
-            l->stop();
-            r->stop();
-            break;
+        int forward = int(v_y * 50);
+        int left = 0;
+        int right = 0;
+        if (v_x >= 0) {
+            right = int(fabs(v_y)*50);
+        } else if (v_x < 0) {
+            left = int(fabs(v_x)*50);
+        }
+        l->setDuty(forward + left);
+        r->setDuty(forward + right);
+        l->run(false);
+        r->run(false);
+    } else {
+        lastState = state;
     }
-    lastState = state;
-    return state;
 }
 

@@ -253,7 +253,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
         /* Peripheral clock enable */
         __HAL_RCC_TIM10_CLK_ENABLE();
         /* TIM10 interrupt Init */
-        HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 0, 0);
+        HAL_NVIC_SetPriority(TIM1_UP_TIM10_IRQn, 2, 0);
         HAL_NVIC_EnableIRQ(TIM1_UP_TIM10_IRQn);
         /* USER CODE BEGIN TIM10_MspInit 1 */
 
@@ -372,16 +372,22 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
         /* Peripheral clock enable */
         __HAL_RCC_USART6_CLK_ENABLE();
 
+        __HAL_RCC_GPIOC_CLK_ENABLE();
+
         /**USART6 GPIO Configuration
         PC6     ------> USART6_TX
         PC7     ------> USART6_RX
         */
-        GPIO_InitStruct.Pin = URG_TX_Pin|URG_RX_Pin;
+        GPIO_InitStruct.Pin = BT_TX_Pin|BT_RX_Pin;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull = GPIO_PULLUP;
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
         HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+        /* USART6 interrupt Init */
+        HAL_NVIC_SetPriority(USART6_IRQn, 1, 0);
+        HAL_NVIC_EnableIRQ(USART6_IRQn);
 
         /* USER CODE BEGIN USART6_MspInit 1 */
 
@@ -423,7 +429,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
         PC6     ------> USART6_TX
         PC7     ------> USART6_RX
         */
-        HAL_GPIO_DeInit(GPIOC, URG_TX_Pin|URG_RX_Pin);
+        HAL_GPIO_DeInit(GPIOC, BT_TX_Pin|BT_RX_Pin);
+
+        /* USART6 interrupt DeInit */
+        HAL_NVIC_DisableIRQ(USART6_IRQn);
 
         /* USER CODE BEGIN USART6_MspDeInit 1 */
 

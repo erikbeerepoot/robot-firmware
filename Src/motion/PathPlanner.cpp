@@ -26,27 +26,28 @@ void PathPlanner::terminate() {}
 double k = 25;
 
 RobotState PathPlanner::service(RobotState state) {
-    static RobotState lastState;
-
-    bool receivedCommand = telemetry->receiveCommand(state.motionState, &(state.motionState));
-    if (receivedCommand) {
-        double v_x = state.motionState.v_x;
-        double v_y = state.motionState.v_y;
-
-        int forward = int(v_y * 50);
-        int left = 0;
-        int right = 0;
-        if (v_x >= 0) {
-            right = int(fabs(v_y)*50);
-        } else if (v_x < 0) {
-            left = int(fabs(v_x)*50);
-        }
-        l->setDuty(forward + left);
-        r->setDuty(forward + right);
-        l->run(false);
-        r->run(false);
-    } else {
-        lastState = state;
-    }
+//    static RobotState lastState;
+//
+//    bool receivedCommand = telemetry->receiveCommand());
+//    if (receivedCommand) {
+//        double v_x = state.motionState.v_x;
+//        double v_y = state.motionState.v_y;
+//
+//        int forward = int(v_y * 50);
+//        int left = 0;
+//        int right = 0;
+//        if (v_x >= 0) {
+//            right = int(fabs(v_y)*50);
+//        } else if (v_x < 0) {
+//            left = int(fabs(v_x)*50);
+//        }
+//        l->setDuty(forward + left);
+//        r->setDuty(forward + right);
+//        l->run(false);
+//        r->run(false);
+//    } else {
+//        lastState = state;
+//    }
+    return state;
 }
 

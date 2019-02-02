@@ -55,6 +55,7 @@
 
 /* USER CODE BEGIN Includes */
 void schedulerTick();
+void handleRxCallback(void *huart);
 
 /* USER CODE END Includes */
 
@@ -64,16 +65,16 @@ void schedulerTick();
 #define MOT_L_PWM_GPIO_Port GPIOA
 #define MOT_R_PWM_Pin GPIO_PIN_1
 #define MOT_R_PWM_GPIO_Port GPIOA
-#define URG_TX_Pin GPIO_PIN_6
-#define URG_TX_GPIO_Port GPIOC
-#define URG_RX_Pin GPIO_PIN_7
-#define URG_RX_GPIO_Port GPIOC
+#define BT_TX_Pin GPIO_PIN_6
+#define BT_TX_GPIO_Port GPIOC
+#define BT_RX_Pin GPIO_PIN_7
+#define BT_RX_GPIO_Port GPIOC
 #define URG_OUTPUT_Pin GPIO_PIN_8
 #define URG_OUTPUT_GPIO_Port GPIOC
-#define BT_TX_Pin GPIO_PIN_6
-#define BT_TX_GPIO_Port GPIOB
-#define BT_RX_Pin GPIO_PIN_7
-#define BT_RX_GPIO_Port GPIOB
+#define TX_Pin GPIO_PIN_6
+#define TX_GPIO_Port GPIOB
+#define RX_Pin GPIO_PIN_7
+#define RX_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

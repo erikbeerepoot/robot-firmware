@@ -100,20 +100,42 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 GPIO_PinState _qs18();
 
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
-/* USER CODE END PFP */
-
-/* USER CODE BEGIN 0 */
+Motor *l = new Motor(GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0, &htim2, TIM_CHANNEL_1, 4096);
+Motor *r = new Motor(GPIOC, GPIO_PIN_2, GPIOC, GPIO_PIN_3, &htim2, TIM_CHANNEL_2, 4096);
 
 
-auto telemetry = new Telemetry(&huart6, &hcrc);
+auto commandCallback = [](Command command,
+                          const unsigned char *payload,
+                          int length) {
+    if (command == SetVelocity) {
+        size_t nextNumberIndex = 0;
+        std::string payloadString = std::string((const char *) payload);
+        float v_x = stof(payloadString, &nextNumberIndex);
+        float v_y = stof(payloadString.substr(nextNumberIndex), &nextNumberIndex);
+
+        int baseDuty = (int) (v_y * 255);
+        int lDuty = (int) (baseDuty + v_x * 255);
+        int rDuty = (int) (baseDuty - v_x * 255);
+        l->setDuty(lDuty);
+        r->setDuty(rDuty);
+        l->run(false);
+        r->run(false);
+    } else if (command == Stop) {
+        l->stop();
+        r->stop();
+    }
+};
+
+auto telemetry = new Telemetry(&huart6, &hcrc, commandCallback);
+
 std::function<void(const char *buffer, int length)> callback = [](const char *buffer, int length) {
     telemetry->transmitScan(buffer, length);
 };
-auto hokuyo = Hokuyo(callback);
 
+PathPlanner *planner = new PathPlanner(telemetry, l, r);
+RobotState *state = new RobotState();
+
+Hokuyo *hokuyo;
 
 // 5 ms period
 // TODO: Build proper scheduler
@@ -121,38 +143,31 @@ void schedulerTick() {
     static int count = 0;
 
     if (count++ % 50 == 0) {
-        hokuyo.streamScans(44, 725, 1, 0, 1);
+        telemetry->service(*state);
+    } else if (count % 200 == 0) {
+        hokuyo->streamScans(44, 725, 1, 0, 1);
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8);
     }
 }
 
-/* USER CODE END 0 */
+void handleRxCallback(void *huart) {
+    auto uart = (UART_HandleTypeDef *) huart;
+    if (uart->Instance == USART6) {
+        // telemetry
+        telemetry->rxCallback(uart->RxXferSize);
+    }
+}
 
 /**
   * @brief  The application entry point.
   *
   * @retval None
   */
-int main(void) {
-    /* USER CODE BEGIN 1 */
-
-    /* USER CODE END 1 */
-
-    /* MCU Configuration----------------------------------------------------------*/
+int main() {
 
     /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
-
-    /* USER CODE BEGIN Init */
-
-    /* USER CODE END Init */
-
-    /* Configure the system clock */
     SystemClock_Config();
-
-    /* USER CODE BEGIN SysInit */
-
-    /* USER CODE END SysInit */
 
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
@@ -171,18 +186,14 @@ int main(void) {
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
-    auto l = new Motor(GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0, &htim2, TIM_CHANNEL_1, 4096);
-    auto r = new Motor(GPIOC, GPIO_PIN_2, GPIOC, GPIO_PIN_3, &htim2, TIM_CHANNEL_2, 4096);
+    hokuyo = new Hokuyo(callback);
 
-    auto planner = new PathPlanner(telemetry, l, r);
-    auto state = new RobotState();
-
+    __HAL_RCC_CRC_CLK_ENABLE();
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
     while (true) {
         MX_USB_HOST_Process();
-        hokuyo.tick();
-//        *state = planner->service(*state);
+        hokuyo->tick();
     }
 #pragma clang diagnostic pop
     /* USER CODE END 3 */
@@ -278,12 +289,10 @@ static void MX_ADC1_Init(void) {
 }
 
 /* CRC init function */
-static void MX_CRC_Init(void)
-{
+static void MX_CRC_Init(void) {
 
     hcrc.Instance = CRC;
-    if (HAL_CRC_Init(&hcrc) != HAL_OK)
-    {
+    if (HAL_CRC_Init(&hcrc) != HAL_OK) {
         _Error_Handler(__FILE__, __LINE__);
     }
 

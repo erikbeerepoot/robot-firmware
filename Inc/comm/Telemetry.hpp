@@ -9,8 +9,8 @@
 #include <common/RobotState.h>
 #include <utility>
 #include <functional>
-#include <hal2/SerialCommunications.h>
-#include <hal2/ChecksumCalculator.h>
+#include <hal2/ISerialCommunications.h>
+#include <hal2/IChecksumCalculator.h>
 
 enum Command {
     Unknown = -1,
@@ -28,8 +28,8 @@ public:
      * @param telemetryCRC The CRC module to use for checksum calculation
      * @param commandCallback The callback to invoke when a command is received
      */
-    Telemetry(SerialCommunications *serial,
-              ChecksumCalculator *checksumCalculator,
+    Telemetry(ISerialCommunications *serial,
+              IChecksumCalculator *checksumCalculator,
               const std::function<void(Command, const unsigned char *payload, int payloadLength)> &commandCallback);
 
     /**
@@ -85,8 +85,9 @@ private:
 
     /// Callback invoked when a command is parsed
     std::function<void(Command, const unsigned char *payload, int payloadLength)> commandCallback;
-    SerialCommunications *serial;
-    ChecksumCalculator *checksumCalculator;
+
+    ISerialCommunications *serial;
+    IChecksumCalculator *checksumCalculator;
 };
 
 #endif //ROBOT_TELEMETRY_H

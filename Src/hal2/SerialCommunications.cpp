@@ -2,7 +2,7 @@
 // Created by Erik Beerepoot 😊 on 2019-02-02.
 //
 
-#include "hal2/SerialCommunications.h"
+#include "hal2/impl/SerialCommunications.h"
 
 SerialCommunications::SerialCommunications(UART_HandleTypeDef *uart){
     this->uart = uart;

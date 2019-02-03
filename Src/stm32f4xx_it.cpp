@@ -4,7 +4,7 @@
   * @brief   Interrupt Service Routines.
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * COPYRIGHT(c) 2019 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -40,8 +40,9 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern TIM_HandleTypeDef htim4;
-extern UART_HandleTypeDef huart1;
+extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
+extern TIM_HandleTypeDef htim10;
+extern UART_HandleTypeDef huart6;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */
@@ -194,34 +195,46 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles TIM4 global interrupt.
+* @brief This function handles TIM1 update interrupt and TIM10 global interrupt.
 */
-void TIM4_IRQHandler(void)
+void TIM1_UP_TIM10_IRQHandler(void)
 {
-    /* USER CODE BEGIN TIM4_IRQn 0 */
+    /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
 
-    /* USER CODE END TIM4_IRQn 0 */
-    HAL_TIM_IRQHandler(&htim4);
-    /* USER CODE BEGIN TIM4_IRQn 1 */
+    /* USER CODE END TIM1_UP_TIM10_IRQn 0 */
+    HAL_TIM_IRQHandler(&htim10);
+    /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 1 */
+    schedulerTick();
+    __HAL_TIM_CLEAR_IT(&htim10, TIM_IT_UPDATE);
 
-    /* USER CODE END TIM4_IRQn 1 */
+    /* USER CODE END TIM1_UP_TIM10_IRQn 1 */
 }
 
 /**
-* @brief This function handles USART1 global interrupt.
+* @brief This function handles USB On The Go FS global interrupt.
 */
-void USART1_IRQHandler(void)
+void OTG_FS_IRQHandler(void)
 {
-    /* USER CODE BEGIN USART1_IRQn 0 */
+    /* USER CODE BEGIN OTG_FS_IRQn 0 */
 
-    /* USER CODE END USART1_IRQn 0 */
-    HAL_UART_IRQHandler(&huart1);
-    /* USER CODE BEGIN USART1_IRQn 1 */
+    /* USER CODE END OTG_FS_IRQn 0 */
+    HAL_HCD_IRQHandler(&hhcd_USB_OTG_FS);
+    /* USER CODE BEGIN OTG_FS_IRQn 1 */
 
-    /* USER CODE END USART1_IRQn 1 */
+    /* USER CODE END OTG_FS_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART6 global interrupt.
+  */
+void USART6_IRQHandler(void)
+{
+    HAL_UART_IRQHandler(&huart6);
 }
 
 /* USER CODE BEGIN 1 */
-
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *uart){
+    handleRxCallback(uart);
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

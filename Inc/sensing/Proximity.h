@@ -5,7 +5,7 @@
 #ifndef ROBOT_PROXIMITY_H
 #define ROBOT_PROXIMITY_H
 
-#include <stm32f446xx.h>
+#include <stm32f401xc.h>
 
 class Proxmity {
 public:

@@ -5,7 +5,7 @@
 #ifndef ROBOT_MOTOR_H
 #define ROBOT_MOTOR_H
 
-#include <stm32f446xx.h>
+#include <stm32f401xc.h>
 #include <stm32f4xx_hal.h>
 
 class Motor {

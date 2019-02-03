@@ -17,12 +17,6 @@ class Task {
      * Called to allow task to perform initialization
      */
     virtual void init() = 0;
-
-    /**
-     * Called to allow task to shutdown/release any resources.
-     * After this runs, service() will no longer be called.
-     */
-    virtual void terminate() = 0;
 };
 
 

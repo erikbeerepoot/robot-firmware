@@ -9,8 +9,8 @@
 #include <common/RobotState.h>
 #include <utility>
 #include <functional>
-
-#include "stm32f4xx_hal.h"#inclu
+#include <hal2/SerialCommunications.h>
+#include <hal2/ChecksumCalculator.h>
 
 enum Command {
     Unknown = -1,
@@ -22,26 +22,41 @@ enum Command {
 
 class Telemetry : Task {
 public:
-    Telemetry(UART_HandleTypeDef *uart,
-              CRC_HandleTypeDef *telemetryCRC,
+    /**
+     * Constructor
+     * @param uart The UART module to use for transmission & reception
+     * @param telemetryCRC The CRC module to use for checksum calculation
+     * @param commandCallback The callback to invoke when a command is received
+     */
+    Telemetry(SerialCommunications *serial,
+              ChecksumCalculator *checksumCalculator,
               const std::function<void(Command, const unsigned char *payload, int payloadLength)> &commandCallback);
+
+    /**
+     * Perform repeated work ("servicing").
+     */
 
     RobotState service(RobotState state) override;
 
+    /**
+     * Perform setup tasks
+     */
     void init() override;
 
-    void terminate() override;
-
-    // Reception of packets from remote
-    void receiveCommand();
-
-
+    /**
+     * Method invoked when data has been received
+     * @param length The number of bytes that were received
+     */
     void rxCallback(int length);
 
     //TODO: Move this to private
     void transmitScan(const char *buffer, int length);
 
 private:
+    /**
+     * Transmit telemetry over serial to listener
+     * @param state
+     */
     void transmitTelemetry(RobotState state);
 
     /**
@@ -52,15 +67,13 @@ private:
      */
     int parseCommandPacket(const unsigned char *buffer, int length);
 
+    Command parseCommand(const unsigned char *buffer, int length);
+
     int parseIncomingChunk(const unsigned char *buffer, int length);
 
     long parseChecksum(const unsigned char *buffer, int length);
 
     uint32_t computeChecksum(const unsigned char *buffer, int length);
-
-    Command parseCommand(const unsigned char *buffer, int length);
-
-    bool areBoundariesValid(std::pair<int, int> boundaries, int packetLength);
 
     int processCommandPacket(const unsigned char *buffer, int length);
 
@@ -68,8 +81,12 @@ private:
 
     int findPacketTerminator(const unsigned char *buffer, int length);
 
-    std::function<void(Command, const unsigned char *payload, int payloadLength)> commandCallback;
+    bool areBoundariesValid(std::pair<int, int> boundaries, int packetLength);
 
+    /// Callback invoked when a command is parsed
+    std::function<void(Command, const unsigned char *payload, int payloadLength)> commandCallback;
+    SerialCommunications *serial;
+    ChecksumCalculator *checksumCalculator;
 };
 
 #endif //ROBOT_TELEMETRY_H

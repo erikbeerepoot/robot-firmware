@@ -10,7 +10,6 @@
 #include "../Inc/comm/Telemetry.hpp"
 
 
-UART_HandleTypeDef *uart;
 CRC_HandleTypeDef *crc;
 
 int rxBufferIndex = 0;
@@ -21,33 +20,29 @@ const char packetSectionSeparator = '\n';
 uint8_t rxBuffer[rxBufferSize];
 uint8_t workingBuffer[chunkSize];
 
-
-Telemetry::Telemetry(UART_HandleTypeDef *telemetryUART, CRC_HandleTypeDef *telemetryCRC, const std::function<void(Command, const unsigned char *payload, int payloadLength)> &callback) {
-    uart = telemetryUART;
-    crc = telemetryCRC;
+Telemetry::Telemetry(SerialCommunications *serial,
+                     ChecksumCalculator *checksumCalculator,
+                     const std::function<void(Command, const unsigned char *payload, int payloadLength)> &callback) {
+    this->serial = serial;
+    this->checksumCalculator = checksumCalculator;
     commandCallback = callback;
 }
 
 RobotState Telemetry::service(RobotState state) {
-    receiveCommand();
     return state;
 }
 
-void Telemetry::init() {}
-
-void Telemetry::terminate() {}
-
-void Telemetry::receiveCommand() {
-    HAL_UART_Receive_IT(uart, workingBuffer, chunkSize);
+void Telemetry::init() {
+    serial->receiveBytes(workingBuffer, chunkSize);
 }
 
 void Telemetry::transmitScan(const char *buffer, int length) {
-    HAL_UART_Transmit(uart, (uint8_t *) buffer, (uint16_t) length, HAL_MAX_DELAY);
+    serial->transmitBytes((uint8_t *)buffer, length);
 }
 
-void Telemetry::rxCallback(int length){
+void Telemetry::rxCallback(int length) {
     parseIncomingChunk(workingBuffer, length);
-    receiveCommand();
+    serial->receiveBytes(workingBuffer, chunkSize);
 }
 
 
@@ -88,11 +83,11 @@ Command Telemetry::parseCommand(const unsigned char *buffer, int length) {
 }
 
 long Telemetry::parseChecksum(const unsigned char *buffer, int length) {
-    return strtol((const char*)buffer, nullptr, 16);
+    return strtol((const char *) buffer, nullptr, 16);
 }
 
 uint32_t Telemetry::computeChecksum(const unsigned char *buffer, int length) {
-    return HAL_CRC_Accumulate(crc, (uint32_t *) buffer, (uint32_t) (length / 4));
+    return checksumCalculator->computeChecksum((uint32_t *) buffer, length / 4);
 }
 
 bool Telemetry::areBoundariesValid(std::pair<int, int> boundaries, int packetLength) {
@@ -108,17 +103,17 @@ int Telemetry::findPacketTerminator(const unsigned char *buffer, int length) {
     return -1;
 }
 
-int Telemetry::findPacketStart(const unsigned char *buffer, int length){
+int Telemetry::findPacketStart(const unsigned char *buffer, int length) {
     int index = length;
     do {
-        if(parseCommand(&buffer[index-1], 2) != Unknown) return index - 1;
-    } while(index-- > 1);
+        if (parseCommand(&buffer[index - 1], 2) != Unknown) return index - 1;
+    } while (index-- > 1);
     return -1;
 }
 
-int Telemetry::parseIncomingChunk(const unsigned char *buffer, int length){
+int Telemetry::parseIncomingChunk(const unsigned char *buffer, int length) {
     // Copy the bytes we've just received into the rx buffer (from working buffer)
-    memcpy(rxBuffer + rxBufferIndex, buffer, (size_t)length);
+    memcpy(rxBuffer + rxBufferIndex, buffer, (size_t) length);
 
     // Now attempt to process a packet out of the rx buffer
     int bytesProcessed = parseCommandPacket(rxBuffer, rxBufferSize);
@@ -143,7 +138,7 @@ int Telemetry::parseIncomingChunk(const unsigned char *buffer, int length){
     return 0;
 }
 
-int Telemetry::processCommandPacket(const unsigned char* buffer, int length){
+int Telemetry::processCommandPacket(const unsigned char *buffer, int length) {
     std::pair<int, int> boundaries = findPacketBoundaries(buffer, length, packetSectionSeparator);
     if (!areBoundariesValid(boundaries, length)) {
         return 0;
@@ -151,7 +146,7 @@ int Telemetry::processCommandPacket(const unsigned char* buffer, int length){
 
     // Command is the first two bytes
     Command command = parseCommand(buffer + boundaries.first, boundaries.second - boundaries.first);
-    if(command == Unknown){
+    if (command == Unknown) {
         return 0;
     }
     //payload boundaries
@@ -168,7 +163,8 @@ int Telemetry::processCommandPacket(const unsigned char* buffer, int length){
     boundaries.first += payloadBoundaries.second + 1;
     boundaries.second += boundaries.first;
 
-    uint32_t computedChecksum = computeChecksum(buffer + payloadBoundaries.first, payloadBoundaries.second - payloadBoundaries.first - 1);
+    uint32_t computedChecksum = computeChecksum(buffer + payloadBoundaries.first,
+                                                payloadBoundaries.second - payloadBoundaries.first - 1);
     long parsedChecksum = parseChecksum(buffer + boundaries.first, boundaries.second - boundaries.first);
 
     //TODO: Compare checksum
@@ -179,12 +175,12 @@ int Telemetry::processCommandPacket(const unsigned char* buffer, int length){
 
 int Telemetry::parseCommandPacket(const unsigned char *buffer, int length) {
     int terminatorIndex = findPacketTerminator(buffer, length);
-    if(terminatorIndex < 1){
+    if (terminatorIndex < 1) {
         return 0;
     }
 
     int startIndex = findPacketStart(buffer, terminatorIndex);
-    if(startIndex < 0){
+    if (startIndex < 0) {
         return 0;
     }
     return processCommandPacket(buffer + startIndex, terminatorIndex - startIndex);

@@ -17,7 +17,6 @@ public:
                 Motor *l,
                 Motor *r);
     void init();
-    void terminate();
     RobotState service(RobotState state) override;
 private:
     Telemetry *telemetry;

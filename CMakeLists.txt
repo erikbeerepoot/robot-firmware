@@ -14,7 +14,7 @@ set(OBJDUMP arm-none-eabi-objdump)
 set(SIZE arm-none-eabi-size)
 
 
-SET(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F401RCTx_FLASH.ld)
+SET(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F401RCTx_FLASH.ld Src/hal2/SerialCommunications.cpp Inc/hal2/SerialCommunications.h Src/hal2/ChecksumCalculator.cpp Inc/hal2/ChecksumCalculator.h)
 
 #Uncomment for hardware floating point
 #SET(FPU_FLAGS "-mfloat-abi=hard -mfpu=fpv4-sp-d16")

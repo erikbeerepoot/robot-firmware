@@ -21,7 +21,6 @@ PathPlanner::PathPlanner(Telemetry *telemetry,
 
 void PathPlanner::init() {}
 
-void PathPlanner::terminate() {}
 
 double k = 25;
 

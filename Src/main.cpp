@@ -125,8 +125,9 @@ auto commandCallback = [](Command command,
         r->stop();
     }
 };
-
-auto telemetry = new Telemetry(&huart6, &hcrc, commandCallback);
+auto serial = SerialCommunications(&huart6);
+auto checksummer = ChecksumCalculator(&hcrc);
+auto telemetry = new Telemetry(&serial, &checksummer, commandCallback);
 
 std::function<void(const char *buffer, int length)> callback = [](const char *buffer, int length) {
     telemetry->transmitScan(buffer, length);

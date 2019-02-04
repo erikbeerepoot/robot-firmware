@@ -59,30 +59,6 @@ private:
      */
     void transmitTelemetry(RobotState state);
 
-    /**
-     * Parse a command packet
-     * @param buffer The buffer with the data to parse
-     * @param length The number of bytes in the buffer
-     * @return true if a packet was parsed successfully, false otherwise
-     */
-    int parseCommandPacket(const unsigned char *buffer, int length);
-
-    Command parseCommand(const unsigned char *buffer, int length);
-
-    int parseIncomingChunk(const unsigned char *buffer, int length);
-
-    long parseChecksum(const unsigned char *buffer, int length);
-
-    uint32_t computeChecksum(const unsigned char *buffer, int length);
-
-    int processCommandPacket(const unsigned char *buffer, int length);
-
-    int findPacketStart(const unsigned char *buffer, int length);
-
-    int findPacketTerminator(const unsigned char *buffer, int length);
-
-    bool areBoundariesValid(std::pair<int, int> boundaries, int packetLength);
-
     /// Callback invoked when a command is parsed
     std::function<void(Command, const unsigned char *payload, int payloadLength)> commandCallback;
 

@@ -8,7 +8,8 @@
 #include <cstdint>
 
 class ISerialCommunications {
-    virtual bool transmitBytes(const uint8_t *buffer, int length, int timeoutMs = 50) = 0;
+public:
+    virtual bool transmitBytes(const uint8_t *buffer, int length, int timeoutMs) = 0;
 
     virtual bool receiveBytes(uint8_t *buffer, uint16_t length) = 0;
 };

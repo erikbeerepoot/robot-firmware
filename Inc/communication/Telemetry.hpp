@@ -5,20 +5,16 @@
 #ifndef ROBOT_TELEMETRY_H
 #define ROBOT_TELEMETRY_H
 
-#include <common/Task.hpp>
-#include <common/RobotState.h>
 #include <utility>
 #include <functional>
+#include <common/Command.h>
+#include <common/RobotState.h>
+#include <common/Task.hpp>
+
 #include <hal2/ISerialCommunications.h>
 #include <hal2/IChecksumCalculator.h>
 
-enum Command {
-    Unknown = -1,
-    Stop = 0,
-    SetScanMode,
-    SetTelemetryMode,
-    SetVelocity
-};
+#include <communication/IPacketParser.h>
 
 class Telemetry : Task {
 public:
@@ -29,7 +25,7 @@ public:
      * @param commandCallback The callback to invoke when a command is received
      */
     Telemetry(ISerialCommunications *serial,
-              IChecksumCalculator *checksumCalculator,
+              IPacketParser *packetParser,
               const std::function<void(Command, const unsigned char *payload, int payloadLength)> &commandCallback);
 
     /**
@@ -52,6 +48,8 @@ public:
     //TODO: Move this to private
     void transmitScan(const char *buffer, int length);
 
+    int parseIncomingChunk(const unsigned char *buffer, int length);
+
 private:
     /**
      * Transmit telemetry over serial to listener
@@ -60,10 +58,14 @@ private:
     void transmitTelemetry(RobotState state);
 
     /// Callback invoked when a command is parsed
-    std::function<void(Command, const unsigned char *payload, int payloadLength)> commandCallback;
+    std::function<void(Command,
+                       const unsigned char *payload,
+                       int payloadLength
+    )>
+            commandCallback;
 
     ISerialCommunications *serial;
-    IChecksumCalculator *checksumCalculator;
+    IPacketParser *packetParser;
 };
 
 #endif //ROBOT_TELEMETRY_H

@@ -17,7 +17,7 @@ if (CMAKE_CROSSCOMPILING)
     set(SIZE arm-none-eabi-size)
 
 
-    SET(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F401RCTx_FLASH.ld Inc/hal2/ISerialCommunications.h Inc/hal2/IChecksumCalculator.h contrib/fakeit/fakeit.h Inc/communication/PacketParser.h)
+    SET(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F401RCTx_FLASH.ld Inc/hal2/ISerialCommunications.h Inc/hal2/IChecksumCalculator.h contrib/fakeit/fakeit.h Inc/communication/impl/PacketParser.h Inc/common/Command.h Inc/communication/IPacketParser.h)
 
     #Uncomment for hardware floating point
     #SET(FPU_FLAGS "-mfloat-abi=hard -mfpu=fpv4-sp-d16")
@@ -80,7 +80,7 @@ else()
     include_directories(Inc)
 #    include_directories(Inc Drivers/STM32F4xx_HAL_Driver/Inc Drivers/STM32F4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F4xx/Include Drivers/CMSIS/Include Middlewares/ST/STM32_USB_Host_Library/Core/Inc Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc)
 
-    add_executable(test ${TEST_SOURCES} ${SOURCES_UNDER_TEST} Inc/hal2/ISerialCommunications.h test/src/TestMain.cpp Src/communication/PacketParser.cpp)
+    add_executable(test ${TEST_SOURCES} ${SOURCES_UNDER_TEST} Inc/hal2/ISerialCommunications.h test/src/TestMain.cpp Src/communication/PacketParser.cpp test/src/PacketParserTests.cpp)
     target_link_libraries(test Catch FakeIt)
 
 endif()

@@ -7,6 +7,6 @@
 ChecksumCalculator::ChecksumCalculator(CRC_HandleTypeDef *crc){
 
 }
-uint32_t ChecksumCalculator::computeChecksum(uint32_t *buffer, int length){
+uint32_t computeChecksum(const std::string &bytes){
 
 }

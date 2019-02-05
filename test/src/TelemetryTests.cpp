@@ -1,10 +1,10 @@
 // Created by Erik Beerepoot 😊 on 2019-02-03.
 #include <catch.hpp>
 #include <fakeit.h>
-#include <string>
-#include "../../Inc/communication/Telemetry.hpp"
+
 #include <thread>
-#include <chrono>
+
+#include <communication/Telemetry.hpp>
 
 bool waitForCondition(std::condition_variable &cv, int timeoutMs) {
     auto timeout = std::chrono::milliseconds(timeoutMs);
@@ -13,7 +13,7 @@ bool waitForCondition(std::condition_variable &cv, int timeoutMs) {
     return cv.wait_for(lck, timeout) == std::cv_status::no_timeout;
 }
 
-TEST_CASE("Parsing packets should work", "[telemetry]") {
+TEST_CASE("Telemetry should work", "[telemetry]") {
     fakeit::Mock<ISerialCommunications> mockSerial;
     fakeit::Mock<IChecksumCalculator> mockCheckCalculator;
 
@@ -30,30 +30,30 @@ TEST_CASE("Parsing packets should work", "[telemetry]") {
         cv.notify_one();
     };
 
-
-    /**
-     * This test is meant to verify that a single packet arriving in
-     * one piece is parsed correctly by the Telemetry class.
-     */
-    SECTION("Parses a valid velocity command packet succesfully") {
-        auto telemetry = Telemetry(&mockSerial.get(), &mockCheckCalculator.get(), callback);
-        // Return valid packet in callback
-        fakeit::When(Method(mockSerial, receiveBytes))
-                .Do([&](uint8_t *buffer, int length) -> bool {
-                    std::cout << "asdf" << std::endl;
-                    if (chunkCount++ < 1) {
-                        strcpy((char *) buffer, "CV\n0.1000.100\n12345678\n\n");
-                        telemetry.rxCallback(24);
-                        return true;
-                    }
-                    return false;
-                });
-
-        telemetry.init();
-
-        waitForCondition(cv, 1000);
-        REQUIRE(commandCount > 0);
-        REQUIRE(receivedCommands.size() == 1);
-        REQUIRE(receivedCommands.front() == SetVelocity);
-    }
+//
+//    /**
+//     * This test is meant to verify that a single packet arriving in
+//     * one piece is parsed correctly by the Telemetry class.
+//     */
+//    SECTION("Parses a valid velocity command packet succesfully") {
+//        auto telemetry = Telemetry(&mockSerial.get(),, callback);
+//        // Return valid packet in callback
+//        fakeit::When(Method(mockSerial, receiveBytes))
+//                .Do([&](uint8_t *buffer, int length) -> bool {
+//                    std::cout << "asdf" << std::endl;
+//                    if (chunkCount++ < 1) {
+//                        strcpy((char *) buffer, "CV\n0.1000.100\n12345678\n\n");
+//                        telemetry.rxCallback(24);
+//                        return true;
+//                    }
+//                    return false;
+//                });
+//
+//        telemetry.init();
+//
+//        waitForCondition(cv, 1000);
+//        REQUIRE(commandCount > 0);
+//        REQUIRE(receivedCommands.size() == 1);
+//        REQUIRE(receivedCommands.front() == SetVelocity);
+//    }
 }

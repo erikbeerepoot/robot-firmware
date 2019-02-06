@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="UPLOAD">
+				<Option working_dir="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 UPLOAD"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Project.elf">
+				<Option output="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Project.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__weak=__attribute__((weak))"/>
+					<Add option="-D__packed=__attribute__((__packed__))"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32F401xC"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/arm-none-eabi"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/backward"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/include"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/include-fixed"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 Project.elf"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Project.elf/fast">
+				<Option output="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Project.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__weak=__attribute__((weak))"/>
+					<Add option="-D__packed=__attribute__((__packed__))"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32F401xC"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc"/>
+					<Add directory="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/arm-none-eabi"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/backward"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/include"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/include-fixed"/>
+					<Add directory="/usr/local/Caskroom/gcc-arm-embedded/7-2018-q2-update/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 Project.elf/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/arm_common_tables.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/arm_const_structs.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/arm_math.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/cmsis_armcc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/cmsis_armcc_V6.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/cmsis_gcc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cm0.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cm0plus.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cm3.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cm4.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cm7.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cmFunc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cmInstr.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_cmSimd.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_sc000.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/CMSIS/Include/core_sc300.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_crc.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_hcd.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/comm/Telemetry.hpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/comm/usb/usb_host.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/comm/usb/usbh_conf.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/comm/usb/usbh_platform.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/common/Common.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/common/RobotState.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/common/Task.hpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/hal2/ChecksumCalculator.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/hal2/SerialCommunications.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/main.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/motion/Motor.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/motion/PathPlanner.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/sensing/Hokuyo.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/sensing/MaxbotixRangefinder.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/sensing/Proximity.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/sensing/SharpRangefinder.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/sensing/bno055.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/stm32f4xx_hal_conf.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Inc/stm32f4xx_it.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc/usbh_cdc.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Src/usbh_cdc.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ctlreq.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_def.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ioreq.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_pipes.h">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ctlreq.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ioreq.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_pipes.c">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/STM32F401RCTx_FLASH.ld">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/comm/Telemetry.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/comm/usb/usb_host.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/comm/usb/usbh_conf.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/comm/usb/usbh_platform.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/hal2/ChecksumCalculator.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/hal2/SerialCommunications.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/main.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/motion/Motor.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/motion/PathPlanner.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/sensing/Hokuyo.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/sensing/MaxbotixRangefinder.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/sensing/Proximity.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/sensing/SharpRangefinder.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/sensing/bno055.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/stm32f4xx_hal_msp.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/stm32f4xx_it.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/Src/system_stm32f4xx.cpp">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/startup/startup_stm32f401xc.s">
+			<Option target="Project.elf"/>
+		</Unit>
+		<Unit filename="/Users/erikbeerepoot/Dropbox/project/robot-stm32f401/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

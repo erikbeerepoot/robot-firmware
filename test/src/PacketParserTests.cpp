@@ -7,7 +7,7 @@
 #include <communication/impl/PacketParser.h>
 
 TEST_CASE("Parsing packets should work", "[Packet Parsing]") {
-    char validPacket[] = "CV\n0.1000.100\n12345678\n\n";
+    const char validPacket[] = "CV\n0.1000.100\n12345678\n\n";
     long validChecksum = 305419896l;
 
     fakeit::Mock<IChecksumCalculator> mockChecksumCalculator;

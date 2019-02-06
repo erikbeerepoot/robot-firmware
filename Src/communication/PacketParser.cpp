@@ -6,8 +6,6 @@
 #include <cstdlib>
 #include <string>
 
-const char packetSectionSeparator = '\n';
-
 PacketParser::PacketParser(IChecksumCalculator *checksumCalculator) {
     this->checksumCalculator = checksumCalculator;
 }

@@ -1,0 +1,5 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Test -DCMAKE_CXX_COMPILER=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -DCMAKE_CROSSCOMPILING= -UCMAKE_CROSSCOMPLING -G "CodeBlocks - Unix Makefiles" /Users/erikbeerepoot/Dropbox/project/robot-stm32f401
+Compiling for x86 host.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/erikbeerepoot/Dropbox/project/robot-stm32f401/cmake-build-test

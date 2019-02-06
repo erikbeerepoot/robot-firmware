@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++     CMakeFiles/test.dir/test/src/PacketParserTests.cpp.obj CMakeFiles/test.dir/test/src/TelemetryTests.cpp.obj CMakeFiles/test.dir/test/src/TestMain.cpp.obj CMakeFiles/test.dir/Src/communication/Telemetry.cpp.obj CMakeFiles/test.dir/Src/communication/PacketParser.cpp.obj  -o test 

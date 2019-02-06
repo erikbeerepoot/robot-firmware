@@ -31,7 +31,6 @@ public:
     /**
      * Perform repeated work ("servicing").
      */
-
     RobotState service(RobotState state) override;
 
     /**
@@ -43,12 +42,10 @@ public:
      * Method invoked when data has been received
      * @param length The number of bytes that were received
      */
-    void rxCallback(int length);
+    ParseResult parseIncomingData(const char *buffer, int length);
 
     //TODO: Move this to private
     void transmitScan(const char *buffer, int length);
-
-    int parseIncomingChunk(const unsigned char *buffer, int length);
 
 private:
     /**
@@ -60,9 +57,7 @@ private:
     /// Callback invoked when a command is parsed
     std::function<void(Command,
                        const unsigned char *payload,
-                       int payloadLength
-    )>
-            commandCallback;
+                       int payloadLength)> commandCallback;
 
     ISerialCommunications *serial;
     IPacketParser *packetParser;

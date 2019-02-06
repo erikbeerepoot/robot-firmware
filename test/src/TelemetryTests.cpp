@@ -5,6 +5,7 @@
 #include <thread>
 
 #include <communication/Telemetry.hpp>
+#include <communication/impl/PacketParser.h>
 
 bool waitForCondition(std::condition_variable &cv, int timeoutMs) {
     auto timeout = std::chrono::milliseconds(timeoutMs);
@@ -15,45 +16,63 @@ bool waitForCondition(std::condition_variable &cv, int timeoutMs) {
 
 TEST_CASE("Telemetry should work", "[telemetry]") {
     fakeit::Mock<ISerialCommunications> mockSerial;
-    fakeit::Mock<IChecksumCalculator> mockCheckCalculator;
+    fakeit::Mock<IChecksumCalculator> mockChecksumCalculator;
+    fakeit::When(Method(mockChecksumCalculator, computeChecksum)).Return((uint32_t) 305419896l);
+    fakeit::When(Method(mockSerial, receiveBytes)).AlwaysReturn(true);
 
-    volatile int commandCount = 0;
-    volatile int chunkCount = 0;
-    std::vector<Command> receivedCommands = {};
+    const char validPacket[] = "CV\n0.1000.100\n12345678\n\n";
 
-    std::condition_variable cv;
     auto callback = [&](Command command,
                         const unsigned char *payload,
-                        int length) {
-        commandCount++;
-        receivedCommands.push_back(command);
-        cv.notify_one();
-    };
+                        int length) {};
 
-//
-//    /**
-//     * This test is meant to verify that a single packet arriving in
-//     * one piece is parsed correctly by the Telemetry class.
-//     */
-//    SECTION("Parses a valid velocity command packet succesfully") {
-//        auto telemetry = Telemetry(&mockSerial.get(),, callback);
-//        // Return valid packet in callback
-//        fakeit::When(Method(mockSerial, receiveBytes))
-//                .Do([&](uint8_t *buffer, int length) -> bool {
-//                    std::cout << "asdf" << std::endl;
-//                    if (chunkCount++ < 1) {
-//                        strcpy((char *) buffer, "CV\n0.1000.100\n12345678\n\n");
-//                        telemetry.rxCallback(24);
-//                        return true;
-//                    }
-//                    return false;
-//                });
-//
-//        telemetry.init();
-//
-//        waitForCondition(cv, 1000);
-//        REQUIRE(commandCount > 0);
-//        REQUIRE(receivedCommands.size() == 1);
-//        REQUIRE(receivedCommands.front() == SetVelocity);
-//    }
+    /**
+     * This test is meant to verify that a single packet arriving in
+     * one piece is parsed correctly by the Telemetry class.
+     */
+    SECTION("Parses a valid velocity command packet succesfully") {
+        auto packetParser = PacketParser(&mockChecksumCalculator.get());
+        auto telemetry = Telemetry(&mockSerial.get(), &packetParser, callback);
+
+        telemetry.init();
+        auto result = telemetry.parseIncomingData(validPacket, (int) (strlen(validPacket)));
+
+        REQUIRE(result.command == Command::SetVelocity);
+        REQUIRE(result.payload == "0.1000.100");
+    }
+
+        /**
+         * This test is meant to verify that a packet arriving in consecutive
+         * pieces should be put together and parsed correctly.
+         */
+    SECTION("Parses a broken up but valid velocity command packet succesfully") {
+        auto packetParser = PacketParser(&mockChecksumCalculator.get());
+        auto telemetry = Telemetry(&mockSerial.get(), &packetParser, callback);
+
+        telemetry.init();
+        auto result1 = telemetry.parseIncomingData(validPacket, 10);
+        auto result2 = telemetry.parseIncomingData(validPacket + 10, (int) (strlen(validPacket)) - 10);
+
+        REQUIRE(result1.command == Command::Unknown);
+        REQUIRE(result1.payload == "");
+        REQUIRE(result2.command == Command::SetVelocity);
+        REQUIRE(result2.payload == "0.1000.100");
+    }
+
+        /**
+        * This test is meant to verify that a packet arriving in consecutive
+        * pieces should be put together and parsed correctly.
+        */
+    SECTION("Fails to parse a corrupted packet.") {
+        auto packetParser = PacketParser(&mockChecksumCalculator.get());
+        auto telemetry = Telemetry(&mockSerial.get(), &packetParser, callback);
+        // make the checksum validation fail
+        fakeit::When(Method(mockChecksumCalculator, computeChecksum)).Return((uint32_t) 0);
+
+        telemetry.init();
+        auto result = telemetry.parseIncomingData(validPacket, (int) (strlen(validPacket)));
+
+        REQUIRE(result.command == Command::Unknown);
+        REQUIRE(result.payload == "");
+    }
 }

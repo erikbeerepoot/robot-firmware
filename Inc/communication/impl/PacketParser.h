@@ -9,20 +9,11 @@
 #include <common/Command.h>
 #include <utility>
 #include <string>
+#include <communication/IPacketParser.h>
 
-typedef struct ParseResult {
-    Command command;
-    std::string payload;
-
-    ParseResult(Command command = Command::Unknown, std::string payload = "") {
-        this->command = command;
-        this->payload = std::move(payload);
-    }
-} ParseResult;
-
-class PacketParser {
+class PacketParser: public IPacketParser {
 public:
-    PacketParser(IChecksumCalculator *checksumCalculator);
+    explicit PacketParser(IChecksumCalculator *checksumCalculator);
 
     /**
     * Parse a command packet
